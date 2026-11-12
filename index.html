@@ -8,29 +8,26 @@
 *{box-sizing:border-box}body{margin:0;background:#08151b;color:#f7efd9;font-family:Georgia,serif;overflow:hidden}
 #world{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 35%,#315c51,#102b32 55%,#07141d)}
 #world:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 65%,#07141ddd),repeating-linear-gradient(90deg,transparent 0 90px,#ffffff08 91px 92px)}
-#hud{position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;gap:10px;font:14px Arial}
-.pill{background:#06121bd9;border:1px solid #d8b76b99;border-radius:12px;padding:10px 14px}
-#scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-#hero{font-size:100px;filter:drop-shadow(0 12px 12px #0009);animation:bob 2s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-10px)}}
 #ground{position:absolute;bottom:-12vh;left:-20%;width:140%;height:55vh;border-radius:50% 50% 0 0;background:repeating-radial-gradient(ellipse at center,#52754a 0 32px,#456c46 34px 66px);border-top:5px solid #a0a86a;transform:perspective(500px) rotateX(12deg)}
-#items{position:absolute;inset:0;pointer-events:none}
+#hero{position:absolute;left:50%;top:48%;font-size:100px;filter:drop-shadow(0 12px 12px #0009);transform:translate(-50%,-50%);transition:left .08s linear,top .08s linear;z-index:2}
+#hud{position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;gap:10px;font:14px Arial;z-index:3}
+.pill{background:#06121bd9;border:1px solid #d8b76b99;border-radius:12px;padding:10px 14px}
+#items{position:absolute;inset:0;z-index:1}
 .gem{position:absolute;font-size:35px;filter:drop-shadow(0 0 14px #8fffff);animation:float 2s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-13px) rotate(10deg)}}
-#panel{position:fixed;inset:0;background:#030b10c9;display:flex;align-items:center;justify-content:center;padding:20px}
-.card{max-width:620px;width:100%;background:linear-gradient(145deg,#18343a,#101b25);border:1px solid #d8b76b;border-radius:22px;padding:30px;text-align:center;box-shadow:0 20px 80px #000b}
+#panel{position:fixed;inset:0;background:#030b10c9;display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
+#panel.hidden{display:none}
+.card{max-width:620px;width:100%;max-height:90vh;overflow:auto;background:linear-gradient(145deg,#18343a,#101b25);border:1px solid #d8b76b;border-radius:22px;padding:30px;text-align:center;box-shadow:0 20px 80px #000b}
 h1{color:#e8c77e;font-size:clamp(30px,5vw,48px);margin:0 0 14px}p{line-height:1.65;color:#eee6d5}
 button{border:0;border-radius:99px;padding:13px 24px;background:#dfbd70;color:#17232a;font-weight:bold;cursor:pointer;margin:7px;font-size:15px}
 input{padding:12px;border-radius:9px;border:1px solid #d8b76b;background:#07151c;color:#fff;width:min(100%,360px);font-size:16px}
-#help{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);background:#06121bd9;border:1px solid #d8b76b88;border-radius:12px;padding:10px 14px;font:13px Arial;text-align:center;width:max-content;max-width:95%}
+#help{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);background:#06121bd9;border:1px solid #d8b76b88;border-radius:12px;padding:10px 14px;font:13px Arial;text-align:center;width:max-content;max-width:95%;z-index:3}
 .small{font:12px Arial;color:#b9c5c2}
-.hidden{display:none}
 </style>
 </head>
 <body>
 <div id="world">
- <div id="ground"></div><div id="items"></div>
- <div id="scene"><div id="hero">🧝🏻‍♂️</div></div>
+ <div id="ground"></div><div id="items"></div><div id="hero">🧝🏻‍♂️</div>
  <div id="hud"><div class="pill">✦ LA LEYENDA DE NOSOTROS</div><div class="pill" id="score">Recuerdos: 0 / 9</div></div>
  <div id="help">WASD o flechas: explorar · E: recoger recuerdo · Espacio: saltar</div>
 </div>
@@ -41,23 +38,24 @@ input{padding:12px;border-radius:9px;border:1px solid #d8b76b;background:#07151c
 <button id="begin">Comenzar aventura</button>
 </div></div>
 <script>
-const panel=document.getElementById('panel'),card=document.getElementById('card'),items=document.getElementById('items'),hero=document.getElementById('hero'),score=document.getElementById('score');
-let started=false,collected=0,stage=0,x=50,y=53,keys={},near=false;
+(() => {
+const panel=document.getElementById('panel'),card=document.getElementById('card'),items=document.getElementById('items'),hero=document.getElementById('hero'),score=document.getElementById('score'),world=document.getElementById('world');
+let started=false,collected=0,stage=0,x=50,y=48,keys={};
 const stages=[
  {name:'Bosque Esmeralda',desc:'El bosque guarda los primeros destellos de nuestra historia.'},
  {name:'Llanuras de Hyrule',desc:'Aunque existan kilómetros entre Colombia y Panamá, el corazón sabe llegar.'},
  {name:'Templo del Tiempo',desc:'El tiempo nos trajo hasta aquí. Ahora toca abrir la última puerta.'}
 ];
 const positions=[[18,30],[78,27],[32,68],[66,72],[49,22],[86,57],[14,62],[52,82],[73,43]];
-function placeItems(){items.innerHTML='';positions.forEach((p,i)=>{if(i<collected)return;let el=document.createElement('div');el.className='gem';el.textContent='✧';el.style.left=p[0]+'%';el.style.top=p[1]+'%';el.dataset.i=i;items.appendChild(el)});}
-function update(){hero.style.transform=`translate(${(x-50)*5}px,${(y-53)*3}px)`;score.textContent=`Recuerdos: ${collected} / 9`;document.getElementById('world').style.filter=`hue-rotate(${stage*22}deg)`;}
-function move(){if(!started)return;let speed=.55;if(keys.ArrowLeft||keys.a)x-=speed;if(keys.ArrowRight||keys.d)x+=speed;if(keys.ArrowUp||keys.w)y-=speed;if(keys.ArrowDown||keys.s)y+=speed;x=Math.max(5,Math.min(95,x));y=Math.max(14,Math.min(88,y));update();}
-function collect(){if(!started)return;let nearest=null,dist=999;document.querySelectorAll('.gem').forEach(el=>{let r=el.getBoundingClientRect(),cx=(r.left+r.width/2)/innerWidth*100,cy=(r.top+r.height/2)/innerHeight*100,d=Math.hypot(cx-x,cy-y);if(d<dist){dist=d;nearest=el}});if(nearest&&dist<13){nearest.remove();collected++;update();if(collected===3||collected===6){stage++;card.innerHTML=`<h1>${stages[stage].name}</h1><p>${stages[stage].desc}</p><button id="continue">Continuar</button>`;panel.classList.remove('hidden');document.getElementById('continue').onclick=()=>panel.classList.add('hidden');}if(collected===9)riddle();}}
+function placeItems(){items.innerHTML='';positions.forEach((p,i)=>{if(i<collected)return;let el=document.createElement('div');el.className='gem';el.textContent='✧';el.style.left=p[0]+'%';el.style.top=p[1]+'%';el.dataset.i=i;items.appendChild(el);});}
+function update(){hero.style.left=x+'%';hero.style.top=y+'%';score.textContent=`Recuerdos: ${collected} / 9`;world.style.filter=`hue-rotate(${stage*22}deg)`;}
+function move(){if(!started)return;let speed=.42;if(keys.ArrowLeft||keys.a||keys.A)x-=speed;if(keys.ArrowRight||keys.d||keys.D)x+=speed;if(keys.ArrowUp||keys.w||keys.W)y-=speed;if(keys.ArrowDown||keys.s||keys.S)y+=speed;x=Math.max(5,Math.min(95,x));y=Math.max(16,Math.min(88,y));update();}
+function collect(){if(!started)return;let nearest=null,dist=999;document.querySelectorAll('.gem').forEach(el=>{let r=el.getBoundingClientRect(),cx=(r.left+r.width/2)/innerWidth*100,cy=(r.top+r.height/2)/innerHeight*100,d=Math.hypot(cx-x,cy-y);if(d<dist){dist=d;nearest=el;}});if(nearest&&dist<13){nearest.remove();collected++;update();if(collected===3||collected===6){stage++;card.innerHTML=`<h1>${stages[stage].name}</h1><p>${stages[stage].desc}</p><button id="continue">Continuar</button>`;panel.classList.remove('hidden');document.getElementById('continue').onclick=()=>panel.classList.add('hidden');}if(collected===9)riddle();}}
 function riddle(){panel.classList.remove('hidden');card.innerHTML=`<h1>La canción escondida</h1><p>Hay una canción que guarda una promesa. ¿Cómo se llama la canción que algún día queremos bailar en nuestra boda?</p><p><input id="answer" placeholder="Escribe tu respuesta"></p><button id="check">Responder</button><p class="small">Pista: el título habla de una boda y la canta Camilo.</p>`;document.getElementById('check').onclick=()=>{let a=document.getElementById('answer').value.toLowerCase();if(a.includes('boda')&&a.includes('camilo'))finale();else alert('¡Casi! Recuerda: La boda de Camilo.');};}
-function finale(){card.innerHTML=`<h1>Madiel, encontré mi tesoro</h1><p>Desde aquella noche del 8 de agosto, cuando nos quedamos hablando hasta el amanecer, supe que había encontrado a alguien extraordinaria. Aunque hoy Colombia y Panamá nos separen, cada recuerdo me acerca a ti.</p><p>Esta aventura termina aquí, pero la nuestra apenas sigue escribiéndose.</p><p><strong>Que sepas que algún día bailaremos esta canción en nuestra boda.</strong></p><p>Para escucharla, selecciona el archivo de audio en tu computador:</p><input type="file" id="song" accept="audio/*"><audio id="audio" controls style="display:none;width:100%;margin-top:12px"></audio><p><button id="again">Volver a recorrer el recuerdo</button></p>`;document.getElementById('song').onchange=e=>{let a=document.getElementById('audio');a.src=URL.createObjectURL(e.target.files[0]);a.style.display='block';a.play();};document.getElementById('again').onclick=()=>location.reload();}
-document.getElementById('begin').onclick=()=>{started=true;panel.classList.add('hidden');placeItems();};
-addEventListener('keydown',e=>{keys[e.key]=true;if(e.key.toLowerCase()==='e')collect();if(e.code==='Space'){hero.style.transform+=' translateY(-35px)';setTimeout(update,180);}});
-addEventListener('keyup',e=>keys[e.key]=false);setInterval(move,30);
-addEventListener('resize',update);placeItems();update();
+function finale(){card.innerHTML=`<h1>Madiel, encontré mi tesoro</h1><p>Desde aquella noche del 8 de agosto, cuando nos quedamos hablando hasta el amanecer, supe que había encontrado a alguien extraordinaria. Aunque hoy Colombia y Panamá nos separen, cada recuerdo me acerca a ti.</p><p>Esta aventura termina aquí, pero la nuestra apenas sigue escribiéndose.</p><p><strong>Que sepas que algún día bailaremos esta canción en nuestra boda.</strong></p><p>Para escucharla, selecciona el archivo de audio en tu computador:</p><input type="file" id="song" accept="audio/*"><audio id="audio" controls style="display:none;width:100%;margin-top:12px"></audio><p><button id="again">Volver a recorrer el recuerdo</button></p>`;document.getElementById('song').onchange=e=>{let a=document.getElementById('audio');if(e.target.files[0]){a.src=URL.createObjectURL(e.target.files[0]);a.style.display='block';a.play();}};document.getElementById('again').onclick=()=>location.reload();}
+document.getElementById('begin').addEventListener('click',()=>{started=true;panel.classList.add('hidden');placeItems();});
+addEventListener('keydown',e=>{keys[e.key]=true;if(e.key.toLowerCase()==='e')collect();if(e.code==='Space'){e.preventDefault();hero.animate([{transform:'translate(-50%,-50%)'},{transform:'translate(-50%,-90%)'},{transform:'translate(-50%,-50%)'}],{duration:350});}});
+addEventListener('keyup',e=>keys[e.key]=false);setInterval(move,30);placeItems();update();
+})();
 </script>
 </body></html>
