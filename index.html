@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10251e">
+<title>The Legend of Us — Jurlyn & Madiel</title>
+<style>
+:root{--gold:#e9c878;--cream:#fff4d7;--ink:#10251e;--mint:#b9d9b4;--rose:#f3aebc}
+*{box-sizing:border-box}
+body{margin:0;background:#091710;color:var(--cream);font-family:Georgia,'Times New Roman',serif}
+button{font:inherit;cursor:pointer}
+.shell{min-height:100vh;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#315c3c 0,#142e23 45%,#091710 100%)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;color:#e7d7a9;font:12px system-ui;letter-spacing:.14em;text-transform:uppercase}
+.brand{font-weight:700}.hearts{color:#f3aebc;font-size:18px;letter-spacing:4px}
+main{width:min(900px,100%);margin:auto;padding:10px 18px 60px}
+.hero{position:relative;min-height:430px;border:1px solid #c4a85c66;border-radius:22px;overflow:hidden;display:flex;align-items:end;justify-content:center;text-align:center;padding:34px 22px;background:
+radial-gradient(circle at 50% 35%,#f6d78b55 0 2%,transparent 22%),
+linear-gradient(180deg,#1e563e 0%,#143d32 43%,#172e2b 65%,#0b1c19 100%)}
+.hero:before{content:"";position:absolute;inset:0;background:
+linear-gradient(155deg,transparent 0 40%,#0b211b 40.2% 100%),
+linear-gradient(25deg,transparent 0 45%,#163b2c 45.2% 100%);clip-path:polygon(0 48%,15% 24%,28% 43%,43% 12%,58% 42%,73% 18%,100% 49%,100% 100%,0 100%);opacity:.9}
+.hero:after{content:"✦       ✧           ✦       ✧";position:absolute;top:36px;left:0;width:100%;color:#ffe8a4;letter-spacing:2.2em;font-size:14px;opacity:.8}
+.sun{position:absolute;top:78px;left:calc(50% - 42px);width:84px;height:84px;border-radius:50%;background:#f4d58d;box-shadow:0 0 65px 24px #f1cf7c55}
+.hero-content{position:relative;z-index:1;max-width:620px}
+.kicker{font:11px system-ui;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
+h1{font-size:clamp(35px,8vw,66px);line-height:.98;margin:14px 0;color:#fff2cc;text-shadow:0 4px 22px #000}
+.subtitle{font-style:italic;color:#e7d8b5;font-size:18px;margin:0 0 24px}
+.btn{border:1px solid var(--gold);background:linear-gradient(#d9bd75,#a98542);color:#1b281d;border-radius:999px;padding:14px 24px;font-weight:bold;box-shadow:0 7px 24px #0005}
+.btn.secondary{background:transparent;color:var(--cream);box-shadow:none}
+.section{display:none;margin:24px auto 0;padding:clamp(22px,5vw,38px);border:1px solid #d9bd754d;border-radius:20px;background:linear-gradient(145deg,#19382c,#10251e 70%);box-shadow:0 18px 55px #0004}
+.section.active{display:block;animation:appear .55s ease}
+@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h2{font-size:clamp(26px,5vw,38px);color:#f3d88f;margin:8px 0 16px}
+p{font-size:17px;line-height:1.7;color:#f1e8d2}
+.small{font:12px system-ui;letter-spacing:.16em;text-transform:uppercase;color:#b9d9b4}
+.card{border:1px solid #e9c87855;background:#091b15a8;border-radius:15px;padding:20px;margin:20px 0}
+.choices{display:grid;gap:10px;margin:18px 0}
+.choice{border:1px solid #b9d9b477;border-radius:12px;padding:14px;background:#173629;color:#fff2d5;text-align:left}
+.choice:hover,.choice:focus{border-color:var(--gold);background:#244a37}
+.feedback{min-height:26px;color:var(--gold);font-style:italic}
+.progress{height:5px;background:#ffffff20;border-radius:10px;margin:20px 0 6px;overflow:hidden}
+.progress span{display:block;height:100%;width:25%;background:var(--gold);transition:width .4s}
+.footer{text-align:center;color:#a8b9a5;font:12px system-ui;margin:28px 0 0}
+.final-letter{font-size:19px;color:#fff0cc;font-style:italic;line-height:1.8}
+.seal{font-size:48px;color:var(--rose);text-align:center;margin:12px}
+@media(min-width:700px){.hero{min-height:500px}.section{padding:42px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><div class="brand">✦ THE LEGEND OF US</div><div class="hearts" aria-label="tres corazones">♥ ♥ ♥</div></header>
+<main>
+<section class="hero" id="welcome">
+<div class="sun"></div>
+<div class="hero-content">
+<div class="kicker">Una aventura para nuestro primer aniversario</div>
+<h1>THE LEGEND<br>OF US</h1>
+<p class="subtitle">Una leyenda escrita por dos corazones</p>
+<p style="font-size:15px">Para Madiel, de parte de Jurlyn</p>
+<button class="btn" onclick="startGame()">▶ COMENZAR AVENTURA</button>
+</div></section>
+
+<div class="progress" aria-label="Progreso de la aventura"><span id="bar"></span></div>
+<div class="small" id="progressText">Aventura sin comenzar</div>
+
+<section class="section" id="chapter1">
+<div class="small">Prólogo · 8 de agosto</div>
+<h2>La noche en que comenzó nuestra historia</h2>
+<p>Hay encuentros que parecen pequeños cuando suceden. Una conversación, unas palabras que se alargan, una noche que se convierte en madrugada… y, sin saberlo, dos corazones empiezan a encontrarse.</p>
+<div class="card"><p>El 8 de agosto, Jurlyn y Madiel comenzaron a escribir una historia que ninguna distancia podría medir.</p><p><strong>La primera misión:</strong> guardar para siempre el recuerdo de aquella noche.</p></div>
+<button class="btn" onclick="go(2)">CONTINUAR ✦</button>
+</section>
+
+<section class="section" id="chapter2">
+<div class="small">Capítulo I · Dos reinos, un corazón</div>
+<h2>Panamá ↔ Colombia</h2>
+<p>Dos países, dos lugares en el mapa. Pero hay sentimientos que no necesitan compartir una frontera para sentirse cerca.</p>
+<div class="card"><p>«Aunque hoy haya kilómetros entre nosotras, quiero que sepas que eres parte de mis días, de mis pensamientos y de mis sueños».</p></div>
+<p>Madiel, elige el camino que representa vuestro amor:</p>
+<div class="choices">
+<button class="choice" onclick="answer(this,'La distancia puede separar lugares, pero no lo que sentimos. ❤️')">Un camino que se mide en kilómetros</button>
+<button class="choice" onclick="answer(this,'¡Exactamente! Lo que construimos juntas vale cada paso. ✨')">Un camino que se construye con amor</button>
+<button class="choice" onclick="answer(this,'Y ese camino sigue escribiéndose, día tras día. 🌙')">Un camino que todavía tiene mil aventuras</button>
+</div><div class="feedback" id="feedback"></div>
+<button class="btn" onclick="go(3)">DESBLOQUEAR SIGUIENTE CAPÍTULO</button>
+</section>
+
+<section class="section" id="chapter3">
+<div class="small">Capítulo II · La melodía de nuestros recuerdos</div>
+<h2>Una canción para dos corazones</h2>
+<p>En esta aventura, la ocarina guarda una melodía especial: cada nota representa algo que hace única vuestra historia.</p>
+<div class="card"><p>♪ La primera nota: aquella conversación del 8 de agosto.</p><p>♪ La segunda nota: cada día en que eligieron seguir juntas.</p><p>♪ La tercera nota: este primer aniversario, el 11 de noviembre.</p></div>
+<p><strong>Pequeño acertijo:</strong> ¿Cuál es el tesoro que Jurlyn quiere proteger en esta aventura?</p>
+<div class="choices">
+<button class="choice" onclick="answer(this,'¡Sí! El tesoro más grande es lo que compartimos. ❤️')">Nuestra historia y el amor que construimos</button>
+<button class="choice" onclick="answer(this,'Las aventuras son maravillosas, pero el verdadero tesoro es el amor que las acompaña. ✨')">Un cofre lleno de oro</button>
+</div><div class="feedback" id="feedback2"></div>
+<button class="btn" onclick="go(4)">ENTRAR AL TEMPLO DEL TIEMPO</button>
+</section>
+
+<section class="section" id="chapter4">
+<div class="small">Capítulo final · 11 de noviembre</div>
+<h2>El tesoro más grande</h2>
+<p>Madiel, has llegado al final de esta pequeña aventura, pero no al final de nuestra historia.</p>
+<div class="card">
+<div class="seal">♥</div>
+<p class="final-letter">«Si tuviera que recorrer mil veces el reino de Hyrule, atravesar todos sus templos y viajar en el tiempo, encontraría mil maneras de volver a ti. Porque mi aventura favorita no es la de Zelda… es la que estoy viviendo contigo.</p>
+<p class="final-letter">El 8 de agosto comenzó una conversación que se convirtió en una de las partes más bonitas de mi vida. Y este 11 de noviembre celebramos nuestro primer año. Gracias por cada palabra, cada sonrisa y cada momento que hemos construido a pesar de la distancia.</p>
+<p class="final-letter">No sé cuántas aventuras nos esperan, pero sí sé con quién quiero vivirlas. Te elegiría una y mil veces más.</p>
+<p class="final-letter">Feliz primer aniversario, mi Madiel. Te amo profundamente.»</p>
+<p style="text-align:right;color:#e9c878">— Tu Jurlyn ❤️</p>
+</div>
+<div class="seal">♥ ♥ ♥</div>
+<p style="text-align:center;color:#e9c878">MISIÓN COMPLETADA</p>
+<p style="text-align:center">Nuestra historia apenas comienza…</p>
+<button class="btn secondary" onclick="restart()">VOLVER A VIVIR LA AVENTURA</button>
+</section>
+<div class="footer">Hecho con amor por Jurlyn, para Madiel · 11 de noviembre</div>
+</main>
+</div>
+<script>
+let current=0;
+function startGame(){document.getElementById('welcome').style.display='none';go(1)}
+function go(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('chapter'+n).classList.add('active');
+  current=n;
+  document.getElementById('bar').style.width=(n*25)+'%';
+  document.getElementById('progressText').textContent='Aventura · '+n+' de 4';
+  document.getElementById('chapter'+n).scrollIntoView({behavior:'smooth',block:'start'});
+}
+function answer(btn,msg){
+ const parent=btn.parentElement;
+ const feedback=parent.nextElementSibling;
+ feedback.textContent=msg;
+ parent.querySelectorAll('button').forEach(b=>b.disabled=true);
+}
+function restart(){
+ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+ document.getElementById('welcome').style.display='flex';
+ document.getElementById('bar').style.width='0%';
+ document.getElementById('progressText').textContent='Aventura sin comenzar';
+ document.querySelectorAll('.choice').forEach(b=>b.disabled=false);
+ document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
