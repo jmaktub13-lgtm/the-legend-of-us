@@ -1,150 +1,25 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10251e">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#10251e">
 <title>The Legend of Us — Jurlyn & Madiel</title>
 <style>
-:root{--gold:#e9c878;--cream:#fff4d7;--ink:#10251e;--mint:#b9d9b4;--rose:#f3aebc}
-*{box-sizing:border-box}
-body{margin:0;background:#091710;color:var(--cream);font-family:Georgia,'Times New Roman',serif}
-button{font:inherit;cursor:pointer}
-.shell{min-height:100vh;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#315c3c 0,#142e23 45%,#091710 100%)}
-.top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;color:#e7d7a9;font:12px system-ui;letter-spacing:.14em;text-transform:uppercase}
-.brand{font-weight:700}.hearts{color:#f3aebc;font-size:18px;letter-spacing:4px}
-main{width:min(900px,100%);margin:auto;padding:10px 18px 60px}
-.hero{position:relative;min-height:430px;border:1px solid #c4a85c66;border-radius:22px;overflow:hidden;display:flex;align-items:end;justify-content:center;text-align:center;padding:34px 22px;background:
-radial-gradient(circle at 50% 35%,#f6d78b55 0 2%,transparent 22%),
-linear-gradient(180deg,#1e563e 0%,#143d32 43%,#172e2b 65%,#0b1c19 100%)}
-.hero:before{content:"";position:absolute;inset:0;background:
-linear-gradient(155deg,transparent 0 40%,#0b211b 40.2% 100%),
-linear-gradient(25deg,transparent 0 45%,#163b2c 45.2% 100%);clip-path:polygon(0 48%,15% 24%,28% 43%,43% 12%,58% 42%,73% 18%,100% 49%,100% 100%,0 100%);opacity:.9}
-.hero:after{content:"✦       ✧           ✦       ✧";position:absolute;top:36px;left:0;width:100%;color:#ffe8a4;letter-spacing:2.2em;font-size:14px;opacity:.8}
-.sun{position:absolute;top:78px;left:calc(50% - 42px);width:84px;height:84px;border-radius:50%;background:#f4d58d;box-shadow:0 0 65px 24px #f1cf7c55}
-.hero-content{position:relative;z-index:1;max-width:620px}
-.kicker{font:11px system-ui;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
-h1{font-size:clamp(35px,8vw,66px);line-height:.98;margin:14px 0;color:#fff2cc;text-shadow:0 4px 22px #000}
-.subtitle{font-style:italic;color:#e7d8b5;font-size:18px;margin:0 0 24px}
-.btn{border:1px solid var(--gold);background:linear-gradient(#d9bd75,#a98542);color:#1b281d;border-radius:999px;padding:14px 24px;font-weight:bold;box-shadow:0 7px 24px #0005}
-.btn.secondary{background:transparent;color:var(--cream);box-shadow:none}
-.section{display:none;margin:24px auto 0;padding:clamp(22px,5vw,38px);border:1px solid #d9bd754d;border-radius:20px;background:linear-gradient(145deg,#19382c,#10251e 70%);box-shadow:0 18px 55px #0004}
-.section.active{display:block;animation:appear .55s ease}
-@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-h2{font-size:clamp(26px,5vw,38px);color:#f3d88f;margin:8px 0 16px}
-p{font-size:17px;line-height:1.7;color:#f1e8d2}
-.small{font:12px system-ui;letter-spacing:.16em;text-transform:uppercase;color:#b9d9b4}
-.card{border:1px solid #e9c87855;background:#091b15a8;border-radius:15px;padding:20px;margin:20px 0}
-.choices{display:grid;gap:10px;margin:18px 0}
-.choice{border:1px solid #b9d9b477;border-radius:12px;padding:14px;background:#173629;color:#fff2d5;text-align:left}
-.choice:hover,.choice:focus{border-color:var(--gold);background:#244a37}
-.feedback{min-height:26px;color:var(--gold);font-style:italic}
-.progress{height:5px;background:#ffffff20;border-radius:10px;margin:20px 0 6px;overflow:hidden}
-.progress span{display:block;height:100%;width:25%;background:var(--gold);transition:width .4s}
-.footer{text-align:center;color:#a8b9a5;font:12px system-ui;margin:28px 0 0}
-.final-letter{font-size:19px;color:#fff0cc;font-style:italic;line-height:1.8}
-.seal{font-size:48px;color:var(--rose);text-align:center;margin:12px}
-@media(min-width:700px){.hero{min-height:500px}.section{padding:42px}}
-</style>
-</head>
-<body>
-<div class="shell">
-<header class="top"><div class="brand">✦ THE LEGEND OF US</div><div class="hearts" aria-label="tres corazones">♥ ♥ ♥</div></header>
-<main>
-<section class="hero" id="welcome">
-<div class="sun"></div>
-<div class="hero-content">
-<div class="kicker">Una aventura para nuestro primer aniversario</div>
-<h1>THE LEGEND<br>OF US</h1>
-<p class="subtitle">Una leyenda escrita por dos corazones</p>
-<p style="font-size:15px">Para Madiel, de parte de Jurlyn</p>
-<button class="btn" onclick="startGame()">▶ COMENZAR AVENTURA</button>
-</div></section>
-
-<div class="progress" aria-label="Progreso de la aventura"><span id="bar"></span></div>
-<div class="small" id="progressText">Aventura sin comenzar</div>
-
-<section class="section" id="chapter1">
-<div class="small">Prólogo · 8 de agosto</div>
-<h2>La noche en que comenzó nuestra historia</h2>
-<p>Hay encuentros que parecen pequeños cuando suceden. Una conversación, unas palabras que se alargan, una noche que se convierte en madrugada… y, sin saberlo, dos corazones empiezan a encontrarse.</p>
-<div class="card"><p>El 8 de agosto, Jurlyn y Madiel comenzaron a escribir una historia que ninguna distancia podría medir.</p><p><strong>La primera misión:</strong> guardar para siempre el recuerdo de aquella noche.</p></div>
-<button class="btn" onclick="go(2)">CONTINUAR ✦</button>
-</section>
-
-<section class="section" id="chapter2">
-<div class="small">Capítulo I · Dos reinos, un corazón</div>
-<h2>Panamá ↔ Colombia</h2>
-<p>Dos países, dos lugares en el mapa. Pero hay sentimientos que no necesitan compartir una frontera para sentirse cerca.</p>
-<div class="card"><p>«Aunque hoy haya kilómetros entre nosotras, quiero que sepas que eres parte de mis días, de mis pensamientos y de mis sueños».</p></div>
-<p>Madiel, elige el camino que representa vuestro amor:</p>
-<div class="choices">
-<button class="choice" onclick="answer(this,'La distancia puede separar lugares, pero no lo que sentimos. ❤️')">Un camino que se mide en kilómetros</button>
-<button class="choice" onclick="answer(this,'¡Exactamente! Lo que construimos juntas vale cada paso. ✨')">Un camino que se construye con amor</button>
-<button class="choice" onclick="answer(this,'Y ese camino sigue escribiéndose, día tras día. 🌙')">Un camino que todavía tiene mil aventuras</button>
-</div><div class="feedback" id="feedback"></div>
-<button class="btn" onclick="go(3)">DESBLOQUEAR SIGUIENTE CAPÍTULO</button>
-</section>
-
-<section class="section" id="chapter3">
-<div class="small">Capítulo II · La melodía de nuestros recuerdos</div>
-<h2>Una canción para dos corazones</h2>
-<p>En esta aventura, la ocarina guarda una melodía especial: cada nota representa algo que hace única vuestra historia.</p>
-<div class="card"><p>♪ La primera nota: aquella conversación del 8 de agosto.</p><p>♪ La segunda nota: cada día en que eligieron seguir juntas.</p><p>♪ La tercera nota: este primer aniversario, el 11 de noviembre.</p></div>
-<p><strong>Pequeño acertijo:</strong> ¿Cuál es el tesoro que Jurlyn quiere proteger en esta aventura?</p>
-<div class="choices">
-<button class="choice" onclick="answer(this,'¡Sí! El tesoro más grande es lo que compartimos. ❤️')">Nuestra historia y el amor que construimos</button>
-<button class="choice" onclick="answer(this,'Las aventuras son maravillosas, pero el verdadero tesoro es el amor que las acompaña. ✨')">Un cofre lleno de oro</button>
-</div><div class="feedback" id="feedback2"></div>
-<button class="btn" onclick="go(4)">ENTRAR AL TEMPLO DEL TIEMPO</button>
-</section>
-
-<section class="section" id="chapter4">
-<div class="small">Capítulo final · 11 de noviembre</div>
-<h2>El tesoro más grande</h2>
-<p>Madiel, has llegado al final de esta pequeña aventura, pero no al final de nuestra historia.</p>
-<div class="card">
-<div class="seal">♥</div>
-<p class="final-letter">«Si tuviera que recorrer mil veces el reino de Hyrule, atravesar todos sus templos y viajar en el tiempo, encontraría mil maneras de volver a ti. Porque mi aventura favorita no es la de Zelda… es la que estoy viviendo contigo.</p>
-<p class="final-letter">El 8 de agosto comenzó una conversación que se convirtió en una de las partes más bonitas de mi vida. Y este 11 de noviembre celebramos nuestro primer año. Gracias por cada palabra, cada sonrisa y cada momento que hemos construido a pesar de la distancia.</p>
-<p class="final-letter">No sé cuántas aventuras nos esperan, pero sí sé con quién quiero vivirlas. Te elegiría una y mil veces más.</p>
-<p class="final-letter">Feliz primer aniversario, mi Madiel. Te amo profundamente.»</p>
-<p style="text-align:right;color:#e9c878">— Tu Jurlyn ❤️</p>
-</div>
-<div class="seal">♥ ♥ ♥</div>
-<p style="text-align:center;color:#e9c878">MISIÓN COMPLETADA</p>
-<p style="text-align:center">Nuestra historia apenas comienza…</p>
-<button class="btn secondary" onclick="restart()">VOLVER A VIVIR LA AVENTURA</button>
-</section>
-<div class="footer">Hecho con amor por Jurlyn, para Madiel · 11 de noviembre</div>
-</main>
-</div>
+:root{--gold:#f2d17d;--cream:#fff2d2;--dark:#0a1712;--green:#183d2b;--rose:#ff9eae}*{box-sizing:border-box}body{margin:0;background:#07130e;color:var(--cream);font-family:Georgia,serif}button{font:inherit;cursor:pointer}.wrap{max-width:1050px;margin:auto;padding:14px}.nav{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 4px;color:var(--gold);font:700 12px system-ui;letter-spacing:.12em}.logo{font: bold 17px Georgia;text-shadow:0 2px 8px #000}.nav button,.goldbtn{border:1px solid #d8b75d;background:linear-gradient(#f6df9a,#b98a36);color:#241b0b;border-radius:12px;padding:11px 16px;font-weight:bold}.hero{border:2px solid #c7a34e;border-radius:20px;overflow:hidden;position:relative;min-height:280px;padding:30px 20px;display:grid;place-items:center;text-align:center;background:linear-gradient(180deg,#f5c779 0%,#d48a63 30%,#456b50 58%,#132c22 100%)}.hero:before{content:' ';position:absolute;inset:0;background:linear-gradient(140deg,transparent 35%,#173c2a 35.5% 60%,transparent 60.5%),linear-gradient(35deg,transparent 45%,#244b32 45.5% 70%,transparent 70.5%);clip-path:polygon(0 48%,12% 22%,25% 46%,41% 16%,57% 48%,76% 20%,100% 48%,100% 100%,0 100%);opacity:.9}.hero:after{content:'✦       ✧        ✦       ✧';position:absolute;top:20px;color:#fff2ba;letter-spacing:1.4em}.heroContent{position:relative;z-index:1;max-width:650px}.eyebrow{font:11px system-ui;letter-spacing:.22em;text-transform:uppercase;color:#ffe6a0}h1{font-size:clamp(36px,8vw,64px);line-height:.95;margin:12px 0;text-shadow:0 4px 18px #251509}.hero p{font-size:17px;line-height:1.5}.panel{margin-top:18px;border:1px solid #c5a24d88;border-radius:18px;padding:20px;background:linear-gradient(145deg,#1c3c2b,#0c2118);box-shadow:0 15px 35px #0005}.stats{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:#f8d98c;font:13px system-ui}.bar{height:7px;border-radius:8px;background:#ffffff22;margin:12px 0;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}.gamegrid{display:grid;grid-template-columns:1fr;gap:14px}.scene{position:relative;border:3px solid #c69c46;border-radius:14px;overflow:hidden;min-height:330px;background:linear-gradient(#6eb6df 0 38%,#9acb74 38% 57%,#477442 57% 100%)}.scene.forest{background:linear-gradient(#7fc5df 0 38%,#6eaa55 38% 100%)}.scene.field{background:linear-gradient(#84c8ec 0 42%,#b7c76d 42% 62%,#7c9c49 62% 100%)}.scene.temple{background:linear-gradient(#4c6683 0 40%,#777b70 40% 100%)}.mountain{position:absolute;bottom:42%;width:0;height:0;border-left:90px solid transparent;border-right:90px solid transparent;border-bottom:145px solid #416b56;filter:drop-shadow(0 4px 2px #263f34)}.m1{left:-25px}.m2{right:-30px;border-bottom-color:#315b4b}.path{position:absolute;bottom:-25px;left:30%;width:40%;height:55%;background:#bba16c;clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);opacity:.95}.tree{position:absolute;bottom:38%;width:25px;height:70px;background:#68452c}.tree:before{content:'';position:absolute;width:90px;height:90px;background:#28623e;border-radius:50%;left:-32px;top:-42px;box-shadow:0 0 0 7px #39794a}.t1{left:9%}.t2{right:12%;transform:scale(1.2)}.castle{position:absolute;bottom:39%;left:50%;transform:translateX(-50%);width:120px;height:115px;background:#9b9b8a;border:4px solid #666b61;border-radius:8px 8px 0 0;box-shadow:inset 0 0 0 5px #bdb9a2}.castle:before{content:'♜';position:absolute;top:-40px;left:25px;color:#aaa;font-size:48px}.castle:after{content:'';position:absolute;bottom:0;left:42px;width:30px;height:50px;background:#403a32;border-radius:18px 18px 0 0}.link{position:absolute;z-index:4;left:50%;bottom:14%;width:38px;height:62px;transform:translateX(-50%);transition:left .13s,bottom .13s}.link .cap{position:absolute;top:0;left:4px;width:30px;height:15px;background:#23783d;clip-path:polygon(0 20%,100% 0,68% 100%,35% 75%)}.link .head{position:absolute;top:10px;left:8px;width:23px;height:20px;background:#e6b77e;border-radius:45%}.link .body{position:absolute;top:28px;left:4px;width:31px;height:27px;background:#277744;clip-path:polygon(15% 0,85% 0,100% 100%,0 100%)}.link .shield{position:absolute;top:31px;left:22px;width:18px;height:23px;background:#315c83;border:2px solid #e0bd62;clip-path:polygon(0 0,100% 0,90% 75%,50% 100%,10% 75%)}.link .legs{position:absolute;top:51px;left:9px;width:8px;height:11px;background:#745033;box-shadow:13px 0 #745033}.collect{position:absolute;z-index:3;font-size:28px;filter:drop-shadow(0 2px 4px #0008);animation:bob 1s infinite alternate}.c1{left:23%;bottom:28%}.c2{right:24%;bottom:47%}.c3{left:72%;bottom:22%}@keyframes bob{to{transform:translateY(-9px)}}.chest{position:absolute;z-index:3;right:9%;bottom:14%;font-size:42px;filter:drop-shadow(0 3px 3px #0008)}.hud{position:absolute;z-index:5;top:10px;left:12px;font:20px system-ui;color:#f55}.hint{position:absolute;z-index:5;bottom:8px;left:8px;right:8px;text-align:center;background:#07130dbb;border:1px solid #d4b65f88;border-radius:9px;padding:8px;font:12px system-ui}.controls{display:grid;grid-template-columns:repeat(3,54px);grid-template-rows:repeat(2,48px);gap:5px;justify-content:center;margin:12px auto}.controls button{border:1px solid #d6b75c;background:#25462f;color:#ffe5a1;border-radius:12px;font-size:22px}.controls .up{grid-column:2}.controls .left{grid-column:1;grid-row:2}.controls .down{grid-column:2;grid-row:2}.controls .right{grid-column:3;grid-row:2}.story{display:none}.story.active{display:block;animation:fade .4s}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}h2{color:var(--gold);font-size:clamp(25px,5vw,35px);margin:8px 0 12px}p{line-height:1.65;color:#f5ebd6}.choices{display:grid;gap:9px}.choice{border:1px solid #b99b54;border-radius:10px;background:#173728;color:#fff0cc;padding:13px;text-align:left}.choice:disabled{opacity:.55}.note{font-style:italic;color:#f4d889}.letter{font-size:18px;line-height:1.85;font-style:italic}.small{font:11px system-ui;letter-spacing:.16em;text-transform:uppercase;color:#b9d9b4}.footer{text-align:center;font:12px system-ui;color:#b3bba5;padding:24px}.hidden{display:none!important}@media(min-width:760px){.gamegrid{grid-template-columns:1.4fr .8fr}.scene{min-height:410px}.panel{padding:25px}}
+</style></head>
+<body><div class="wrap"><header class="nav"><div class="logo">✦ THE LEGEND OF US</div><div>♥ <span id="heartCount">0</span>/3</div></header>
+<section class="hero" id="welcome"><div class="heroContent"><div class="eyebrow">Una aventura de aniversario · 11 de noviembre</div><h1>THE LEGEND<br>OF US</h1><p>Madiel, Hyrule guarda una misión que solo tú puedes completar.<br>Una historia de Jurlyn, para ti. ❤️</p><button class="goldbtn" onclick="begin()">▶ COMENZAR AVENTURA</button></div></section>
+<div class="panel hidden" id="gamePanel"><div class="stats"><span id="stageName">BOSQUE KOKIRI</span><span>Gemas: <b id="gemCount">0</b>/3</span><span id="hearts">♡ ♡ ♡</span></div><div class="bar"><span id="progress"></span></div><div class="gamegrid"><div><div class="scene forest" id="scene"><div class="mountain m1"></div><div class="mountain m2"></div><div class="tree t1"></div><div class="tree t2"></div><div class="path"></div><div class="castle hidden" id="castle"></div><div class="hud" id="hud">♥ ♥ ♥</div><div class="collect c1" id="gem1">💎</div><div class="collect c2" id="gem2">💎</div><div class="collect c3" id="gem3">💎</div><div class="chest" id="chest">🎁</div><div class="link" id="link"><i class="cap"></i><i class="head"></i><i class="body"></i><i class="shield"></i><i class="legs"></i></div><div class="hint" id="hint">Usa las flechas para mover a Link y recoge las 3 gemas.</div></div><div class="controls"><button class="up" onclick="move(0,-1)">▲</button><button class="left" onclick="move(-1,0)">◀</button><button class="down" onclick="move(0,1)">▼</button><button class="right" onclick="move(1,0)">▶</button></div><p class="small" style="text-align:center">También puedes usar las flechas del teclado</p></div><div><div class="small">Tu misión</div><h2 id="missionTitle">Encuentra los tesoros del bosque</h2><p id="missionText">Madiel, guía a Link por el bosque. Cada gema representa un recuerdo de vuestra historia.</p><div class="panel" style="margin:10px 0;padding:15px"><p class="note" id="memory">8 de agosto: una conversación que se quedó hasta la madrugada… y se convirtió en el comienzo de nosotras.</p></div><button class="goldbtn hidden" id="nextBtn" onclick="nextStage()">CONTINUAR MISIÓN ✦</button></div></div></div>
+<section class="panel story" id="story1"><div class="small">Recuerdo desbloqueado · 8 de agosto</div><h2>La noche que cambió todo</h2><p>Una conversación que se alargó hasta la madrugada. Dos chicas en países distintos, sin imaginar que aquellas palabras estaban abriendo la puerta a una historia preciosa.</p><p class="note">Primera reliquia: el comienzo de nosotras. ❤️</p><button class="goldbtn" onclick="showStory(2)">SIGUIENTE RECUERDO</button></section>
+<section class="panel story" id="story2"><div class="small">Recuerdo desbloqueado · Dos países, un amor</div><h2>Panamá y Colombia</h2><p>Hay mares, mapas y kilómetros entre nosotras. Pero ninguna distancia puede medir lo que una persona llega a significar para otra.</p><p>Madiel, ¿qué es lo que hace fuerte esta aventura?</p><div class="choices"><button class="choice" onclick="quiz(this,true)">Elegirnos, incluso cuando estamos lejos. ❤️</button><button class="choice" onclick="quiz(this,false)">Las gemas que encontramos por el camino.</button></div><p id="quizMsg" class="note"></p><button class="goldbtn" onclick="showStory(3)">CONTINUAR</button></section>
+<section class="panel story" id="story3"><div class="small">Templo del Tiempo · 11 de noviembre</div><h2>El tiempo nos trajo hasta aquí</h2><p>Un año de mensajes, ilusión, paciencia y amor. Si Link puede viajar en el tiempo para proteger Hyrule, tú y yo podemos seguir construyendo algo hermoso, paso a paso.</p><p>Has encontrado las tres reliquias. Hay un último cofre esperando por ti…</p><button class="goldbtn" onclick="showStory(4)">ABRIR EL COFRE FINAL ♥</button></section>
+<section class="panel story" id="story4"><div class="small">Misión completada · Nuestro primer aniversario</div><h2>Mi tesoro eres tú, Madiel</h2><div class="letter"><p>Mi Madiel:</p><p>Si tuviera que recorrer todo Hyrule, atravesar bosques, templos y mares, lo haría con tal de volver a encontrarte.</p><p>El 8 de agosto comenzó una conversación que terminó convirtiéndose en una de las partes más bonitas de mi vida. Y el 11 de noviembre celebramos nuestro primer año.</p><p>Gracias por existir, por elegirme y por hacer que incluso la distancia tenga sentido. No sé cuántas aventuras nos esperan, pero sí sé con quién quiero vivirlas.</p><p>Te elegiría una y mil veces más. Feliz primer aniversario, mi amor.</p><p style="text-align:right;color:var(--gold)">Con todo mi amor,<br>Tu Jurlyn. ❤️</p></div><div style="text-align:center;font-size:30px">♥ ♥ ♥</div><button class="goldbtn" onclick="location.reload()">VOLVER A JUGAR</button></section>
+<div class="footer">Creado con amor por Jurlyn para Madiel · Una aventura, dos corazones, una historia. ∞</div></div>
 <script>
-let current=0;
-function startGame(){document.getElementById('welcome').style.display='none';go(1)}
-function go(n){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById('chapter'+n).classList.add('active');
-  current=n;
-  document.getElementById('bar').style.width=(n*25)+'%';
-  document.getElementById('progressText').textContent='Aventura · '+n+' de 4';
-  document.getElementById('chapter'+n).scrollIntoView({behavior:'smooth',block:'start'});
-}
-function answer(btn,msg){
- const parent=btn.parentElement;
- const feedback=parent.nextElementSibling;
- feedback.textContent=msg;
- parent.querySelectorAll('button').forEach(b=>b.disabled=true);
-}
-function restart(){
- document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
- document.getElementById('welcome').style.display='flex';
- document.getElementById('bar').style.width='0%';
- document.getElementById('progressText').textContent='Aventura sin comenzar';
- document.querySelectorAll('.choice').forEach(b=>b.disabled=false);
- document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
- window.scrollTo({top:0,behavior:'smooth'});
-}
-</script>
-</body>
-</html>
+let x=50,y=68,gems=0,stage=0,got=[false,false,false],started=false;const $=id=>document.getElementById(id);
+function begin(){$('welcome').classList.add('hidden');$('gamePanel').classList.remove('hidden');started=true;draw()}
+function move(dx,dy){if(!started||stage>0)return;x=Math.max(7,Math.min(93,x+dx*7));y=Math.max(18,Math.min(84,y+dy*6));$('link').style.left=x+'%';$('link').style.bottom=(100-y)+'%';let spots=[[23,72],[76,53],[72,78]];spots.forEach((p,i)=>{if(!got[i]&&Math.abs(x-p[0])<12&&Math.abs(y-p[1])<13){got[i]=true;gems++;$('gem'+(i+1)).classList.add('hidden');$('gemCount').textContent=gems;$('heartCount').textContent=gems;$('hearts').textContent='♥ '.repeat(gems)+'♡ '.repeat(3-gems);$('hint').textContent=['¡Una gema! El recuerdo del 8 de agosto.','¡Segunda gema! Dos países, un mismo corazón.','¡Tercera gema! Un año de amor y aventuras.'][i];$('progress').style.width=(gems/3*100)+'%';}});if(gems===3){$('hint').textContent='¡Encontraste las tres reliquias! Acércate al cofre y tócalo.';if(Math.abs(x-88)<15&&Math.abs(y-82)<17)unlock()}}
+function unlock(){stage=1;$('chest').textContent='✨';$('nextBtn').classList.remove('hidden');$('missionTitle').textContent='¡Misión completada!';$('missionText').textContent='Link ha reunido las tres reliquias del amor. Has desbloqueado los recuerdos de Jurlyn y Madiel.';$('hint').textContent='¡Cofre abierto! Pulsa CONTINUAR MISIÓN.'}
+function draw(){$('link').style.left=x+'%'}function nextStage(){showStory(1)}function showStory(n){$('gamePanel').classList.add('hidden');document.querySelectorAll('.story').forEach(s=>s.classList.remove('active'));$('story'+n).classList.add('active');$('story'+n).scrollIntoView({behavior:'smooth',block:'start'})}
+function quiz(btn,ok){document.querySelectorAll('#story2 .choice').forEach(b=>b.disabled=true);$('quizMsg').textContent=ok?'¡Exactamente! Lo más valioso es seguir eligiéndonos. ❤️':'Las gemas son bonitas, pero nuestro amor es el verdadero tesoro. ❤️'}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowUp')move(0,-1);if(e.key==='ArrowDown')move(0,1);if(e.key==='ArrowLeft')move(-1,0);if(e.key==='ArrowRight')move(1,0)});
+</script></body></html>
